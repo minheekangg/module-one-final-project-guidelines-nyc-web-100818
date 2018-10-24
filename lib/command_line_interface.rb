@@ -38,7 +38,7 @@ class CLI
       start_game
     else
       puts "Your score is #{self.score}"
-      puts answer
+      puts show
     end
   end
 
