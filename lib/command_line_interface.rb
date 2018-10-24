@@ -1,3 +1,5 @@
+require 'JSON'
+
 class CLI
   attr_accessor :user, :game, :score
 
@@ -33,7 +35,10 @@ class CLI
       puts "GOOD JOB"
       @score += 1
       puts "Your score is #{self.score}"
-      # binding.pry
+      start_game
+    else
+      puts "Your score is #{self.score}"
+      puts answer
     end
   end
 
@@ -41,4 +46,15 @@ class CLI
   #   Score.new(score: @score, user: @user.id, game: @game.id)
   # end
 
+
+
 end
+
+
+private
+# #REMOVING DUPLICATES FROM SQL
+# DELETE FROM games
+# WHERE id NOT IN
+# 	(SELECT MIN(id) as id
+# 	FROM games
+# 	GROUP BY show, quote)
