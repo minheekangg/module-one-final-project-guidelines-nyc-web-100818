@@ -1,7 +1,7 @@
 require_relative '../config/environment'
 
-
-welcome # TAKES IN USERNAME + CREATES NEW USER INSTANCE
-play_game # ASKS TO PLAY GAME + SAMPLE QUOTE
-
+c = CLI.new
+c.welcome # TAKES IN USERNAME + CREATES NEW USER INSTANCE
+c.start_game # ASKS TO PLAY GAME + SAMPLE QUOTE
+# c.check_answer(guess)
 puts " "

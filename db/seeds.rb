@@ -9,5 +9,5 @@ end
   Game.create(show: "Seinfeld", quote: Faker::Seinfeld.quote)
 end
 
-Score.create(user_id: User.all.sample.id, game_id: Game.all.sample.id)
-binding.pry
+# Score.create(user_id: User.all.sample.id, game_id: Game.all.sample.id)
+# binding.pry
