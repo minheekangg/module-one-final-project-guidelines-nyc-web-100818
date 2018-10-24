@@ -5,3 +5,8 @@ gem "sinatra-activerecord"
 gem "sqlite3"
 gem "pry"
 gem "require_all"
+gem 'nokogiri'
+gem 'rest-client'
+gem 'faker'
+gem 'activerecord', :require => 'active_record'
+gem 'rake'
