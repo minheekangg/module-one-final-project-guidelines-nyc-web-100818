@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20181024165348) do
     t.integer "user_id"
     t.integer "game_id"
     t.integer "score"
+    t.string  "username"
   end
 
   create_table "users", force: :cascade do |t|

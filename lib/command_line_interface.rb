@@ -48,9 +48,12 @@ class CLI
       @shows.pop
       @game = game_instance.id
       end_game
+      # binding.pry
       display_score(self.game_score, @shows)
       puts "\n"
     end
+        display_high_score
+    # binding.pry
   end
 
   def display_score(score, shows)
@@ -68,20 +71,30 @@ class CLI
   end
 
 
-
-
   def end_game
-    Score.all.each do |each|
-      if self.user.id == each.user_id
-        if self.game_score > each.score
-            each.score = self.game_score
-        end
-      else
-        Score.create(score: @game_score, user_id: @user.id, game_id: @game)
-      # binding.pry
-    end
+    if Score.all.count < 1
+      Score.create(score: @game_score, user_id: @user.id, game_id: @game, username: @user.username)
+    else
+      Score.all.each do |each|
+        if self.user.id == each.user_id
+          if self.game_score > each.score
+              each.score = self.game_score
+          end
+        else
+          Score.create(score: @game_score, user_id: @user.id, game_id: @game, username: @user.username)
+      end
   end
 end
+
+
+  def display_high_score
+#     sorted_score =  Score.all.sort_by {|obj| obj.score}.reverse
+#     top10 = sorted_score[0..9]
+#       top10.each_with_index do |top, idx|
+#         puts "#{idx + 1}. #{top.username} : #{top.score}"
+#       end
+# binding.pry
+end # end of method
 
 
 end
