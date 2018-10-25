@@ -50,8 +50,8 @@ class CLI
       end_game
       display_score(self.game_score, @shows)
       puts "\n"
-      binding.pry
     end
+    # binding.pry
   end
 
   def display_score(score, shows)
@@ -64,11 +64,9 @@ class CLI
     sorted_shows = show_count.sort_by {|k,v| v}.reverse
     sorted_shows.each do |show, score|
       puts "\t#{show} : #{score}"
-
+      display_high_score
     end
   end
-
-
 
 
   def end_game
@@ -79,10 +77,15 @@ class CLI
         end
       else
         Score.create(score: @game_score, user_id: @user.id, game_id: @game)
-      # binding.pry
     end
   end
 end
+
+
+  def display_high_score
+    puts Score.all
+  end
+
 
 
 end
