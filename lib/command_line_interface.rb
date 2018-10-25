@@ -50,7 +50,6 @@ class CLI
       end_game
       display_score(self.game_score, @shows)
       puts "\n"
-      binding.pry
     end
   end
 

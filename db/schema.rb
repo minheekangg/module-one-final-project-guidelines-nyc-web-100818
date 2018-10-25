@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181025005728) do
+ActiveRecord::Schema.define(version: 20181024165348) do
 
   create_table "games", force: :cascade do |t|
     t.string "show"
