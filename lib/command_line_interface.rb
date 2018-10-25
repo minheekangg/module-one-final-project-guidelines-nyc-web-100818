@@ -42,6 +42,7 @@ class CLI
       start_game
 
     else
+<<<<<<< HEAD
       puts "UHOH! THE ANSWER IS: #{show}"
       puts "\n"
       @shows << show
@@ -64,6 +65,10 @@ class CLI
     sorted_shows = show_count.sort_by {|k,v| v}.reverse
     sorted_shows.each do |show, score|
       puts "\t#{show} : #{score}"
+=======
+      puts "Your score is #{self.score}"
+      puts show
+>>>>>>> 35362f592f9bf570183dc610e45dd16d332c0467
     end
   end
 
