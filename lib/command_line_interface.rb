@@ -7,33 +7,43 @@ class CLI
   def initialize
     @game_score = 0
     @shows = []
+    @prompt = TTY::Prompt.new
+    get_game = []
+    get_game << Game.all
+    @curr_game = get_game.flatten
   end
 
   def welcome
     puts "Welcome! Please enter your name"
     username = gets.chomp   #TAKES IN USERNAME
     puts "Hi #{username}! Let's play sitcom trivia."
+    puts "\n"
     new_user = User.find_or_create_by(username: username)
     @user = new_user
   end
 
   def start_game
-    prompt = TTY::Prompt.new
     puts "Try to guess which show the following quote belongs to."
     puts "\n"
-    game_instance = Game.all.sample
-    quote = game_instance.quote
-    # puts quote
-    puts "\n"
-    show_names = Game.all.map { |game| game.show }.uniq
-    # ["The Office", "Seinfeld"]
-    answers = show_names.each_with_index { |name, index| "#{index + 1}. #{name}" }
-    puts " "
-    answer = prompt.select(quote, answers)
+    game_instance = @curr_game.sample   #picks 1 game instance
+    quote = game_instance.quote        #takes quote from picked instance
+    show_names = Game.all.map { |game| game.show }.uniq     #collects show names
+    answer = @prompt.select(quote, show_names)              #SHOWS Q+A
 
-    # user_input_number = gets.chomp.to_i # the user's guess
-    # show_name = show_names[user_input_number - 1] # "The Office"
-    # puts "\n"
+    @curr_game.delete(game_instance)
+
+    check_answer(quote, answer, game_instance)
+  end
+
+  def continue_curr_game
+    game_instance = @curr_game.sample   #picks 1 game instance
+    quote = game_instance.quote        #takes quote from picked instance
+
+    show_names = Game.all.map { |game| game.show }.uniq     #collects show names
+    answer = @prompt.select(quote, show_names)              #SHOWS Q+A
+
+    @curr_game.delete(game_instance)
+
     check_answer(quote, answer, game_instance)
   end
 
@@ -44,8 +54,8 @@ class CLI
       @game_score += 1
       @shows << show
       puts "Your score is #{self.game_score}."
-      start_game
-
+      puts "\n"
+      continue_curr_game
     else
       puts "UHOH! The correct answer is: #{show}"
       puts "\n"
@@ -53,7 +63,6 @@ class CLI
       @shows.pop
       @game = game_instance.id
       save_score
-      # binding.pry
       display_score(self.game_score, @shows)
       puts "\n"
     end
@@ -73,35 +82,14 @@ class CLI
     end
   end
 
-
     def save_score
       Score.find_or_create_by(score: @game_score, user_id: @user.id, game_id: @game, username: @user.username)
     end
+
     def play_again
-      prompt = TTY::Prompt.new
-      prompt.yes?("Do you want to play again?") do |answer|
-        answer.positive "Yes"
-        answer.negative "No"
-      end
+      
     end
 
-
-    # def end_game
-    #    if Score.all.count < 1
-    #      Score.create(score: @game_score, user_id: @user.id, game_id: @game, username: @user.username)
-    #    else
-    #      Score.all.each do |each|
-    #        if self.user.id == each.user_id
-    #            # if self.game_score > each.score
-    #            #     Score.update(score: self.game_score)
-    #            # end
-    #            # binding.pry
-    #        else
-    #          Score.create(score: @game_score, user_id: @user.id, game_id: @game, username: @user.username)
-    #        end
-    #      end
-    #    end
-    # end
 
   def display_high_score
   sorted_score =  Score.all.sort_by {|obj| obj.score}.reverse
