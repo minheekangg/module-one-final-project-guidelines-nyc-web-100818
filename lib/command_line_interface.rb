@@ -67,7 +67,6 @@ class CLI
       save_score
       display_score(self.game_score, @shows)
       puts "\n"
-      binding.pry
       play_again
     end
   end
@@ -102,11 +101,11 @@ class CLI
   end
 
   def display_high_score
-    puts "HIGH SCORES"
+    puts "\tHIGH SCORES"
     sorted_score =  Score.all.sort_by {|obj| obj.score}.reverse
     top10 = sorted_score[0..9]
     top10.each do |each|
-      puts "#{each.username} : #{each.score}"
+      puts "\t#{each.username} : #{each.score}"
     end
   end
 
