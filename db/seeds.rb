@@ -39,8 +39,3 @@ end
 50.times do
   Game.find_or_create_by(show: "How I Met Your Mother", quote: Faker::HowIMetYourMother.quote)
 end
-
-
-20.times do
-  Score.create(user_id: 1, game_id: 3, score: 0, username: "mh")
-end
