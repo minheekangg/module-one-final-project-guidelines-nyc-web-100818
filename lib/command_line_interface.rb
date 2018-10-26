@@ -129,10 +129,8 @@ class CLI
 
  def display_high_score
    sleep(1)
-   # puts @artii.asciify('HIGH SCORES')
    sorted_score =  Score.all.sort_by {|obj| obj.score}.reverse
    top10 = sorted_score[0..9]
-   # binding.pry
    rows = []
    top10.each do |each|
      rows << [each.username, each.score]
