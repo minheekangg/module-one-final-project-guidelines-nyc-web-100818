@@ -140,7 +140,7 @@ class CLI
  end
 
  def display_hardest_question
-   if Score.all.count <= 20
+   if Score.all.count <= 10
      puts "\n"
      puts "Play more to get the hardest question!".colorize(:color => :cyan)
      puts "\n"
