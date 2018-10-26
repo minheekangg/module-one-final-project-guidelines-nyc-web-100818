@@ -141,7 +141,9 @@ class CLI
 
  def display_hardest_question
    if Score.all.count <= 20
-     puts "Play more to get the hardest question!"
+     puts "\n"
+     puts "Play more to get the hardest question!".colorize(:color => :cyan)
+     puts "\n"
    else
        q_arr = Score.all.map do |each_score|
          each_score.game_id
